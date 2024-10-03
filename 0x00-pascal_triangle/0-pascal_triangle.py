@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""This file houses a function that generates pascal triangle
+most likely, several functions with same purpose will be added
+then their speed and efficiency will be compared"""
 
 def pascal_triangle(n):
     """This function returns a list of lists
