@@ -15,7 +15,7 @@ def pascal_triangle(n):
     current = [1]
     triangle = [current]
 
-    for x in range(1, n + 1):
+    for x in range(1, n):
         prev = triangle[-1]
         if len(prev) == 1:
             current = [1, 1]
