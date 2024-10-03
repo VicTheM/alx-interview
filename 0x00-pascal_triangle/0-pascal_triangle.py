@@ -3,15 +3,16 @@
 most likely, several functions with same purpose will be added
 then their speed and efficiency will be compared"""
 
+
 def pascal_triangle(n):
     """This function returns a list of lists
     that represent the pascla triangle of n"""
-    
+
     if n <= 0:
         return []
     if n == 1:
         return [[1]]
-    
+
     current = [1]
     triangle = [current]
 
