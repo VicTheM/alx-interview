@@ -2,8 +2,8 @@
 """
 In a text file, there is a single character H.
 Your text editor can execute only two operations
-in this file: Copy All and Paste. Given a number n, 
-write a method that calculates the fewest number of 
+in this file: Copy All and Paste. Given a number n,
+write a method that calculates the fewest number of
 operations needed to result in exactly n H characters
 in the file.
 """
@@ -15,7 +15,7 @@ def minOperations(n):
     curr = 1
     copy = 0
 
-    if type(n) != int:
+    if isinstance(n, int) is False or n <= 1:
         return operations
 
     while curr < n:
