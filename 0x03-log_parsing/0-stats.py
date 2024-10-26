@@ -13,7 +13,7 @@ def custom_print(size, data):
     print(f"File size: {size}")
 
     for code, number in data.items():
-        if isinstance(number, int) and number > 0: 
+        if isinstance(number, int) and number > 0:
             print(f"{code}: {number}")
 
 
@@ -33,20 +33,22 @@ file_size = 0
 pattern = '^([0-9]{1,3}\.){3}[0-9]{1,3} \- (.+) "GET /projects/260 HTTP/1.1" [2-5]0[0134] \d+$'
 test = re.compile(pattern)
 
-counter = 0
-try:
-    for line in sys.stdin:
-        counter += 1
-        if test.match(line):
-            splitted = line.split()
-            file_size += int(splitted.pop())
-            code = splitted.pop()
+if __name__ == "__main__":
+    counter = 0
+    try:
+        for line in sys.stdin:
+            if test.match(line):
+                splitted = line.split()
+                file_size += int(splitted.pop())
+                code = splitted.pop()
 
-            if code in log:
-                log[code] += 1
-        
-        if counter == 10:
-            counter = 0
-            custom_print(file_size, log)
-except KeyboardInterrupt:
-    custom_print(file_size, log)
+                if code in log:
+                    counter += 1
+                    log[code] += 1
+
+            if counter == 10:
+                counter = 0
+                custom_print(file_size, log)
+    except KeyboardInterrupt:
+        custom_print(file_size, log)
+        raise
