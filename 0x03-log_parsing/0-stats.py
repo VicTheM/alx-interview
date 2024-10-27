@@ -1,54 +1,43 @@
 #!/usr/bin/python3
-"""This file uses regular expression to parse a log file
-and output a summary"""
-
-import os
+"""A script that reads stdin line by line and computes metrics."""
 import sys
-import signal
-import re
 
 
-def custom_print(size, data):
-    """Prints a neat format"""
-    print(f"File size: {size}")
+def print_stats(file_size, stats):
+    """Prints total file size and valid codes count."""
 
-    for code, number in data.items():
-        if isinstance(number, int) and number > 0:
-            print(f"{code}: {number}")
+    print("File size: {}".format(file_size))
+    for code in sorted(stats):
+        print("{}: {}".format(code, stats[code]))
 
-
-log = {
-        "200": 0,
-        "301": 0,
-        "400": 0,
-        "401": 0,
-        "403": 0,
-        "404": 0,
-        "405": 0,
-        "500": 0
-        }
-file_size = 0
-
-# Get input of a certain format
-pattern = r'^([0-9]{1,3}\.){3}[0-9]{1,3} \- (.+) "GET /projects/260 HTTP/1.1" [2-5]0[0134] \d+$'
-test = re.compile(pattern)
 
 if __name__ == "__main__":
-    counter = 0
+    file_size = 0
+    possible_codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    stats = {}
+
     try:
-        for line in sys.stdin:
-            if test.match(line):
-                splitted = line.split()
-                file_size += int(splitted.pop())
-                code = splitted.pop()
+        for i, line in enumerate(sys.stdin):
+            line = line.split()
 
-                if code in log:
-                    counter += 1
-                    log[code] += 1
+            try:
+                file_size += int(line[-1])
+            except (IndexError, ValueError):
+                pass
 
-            if counter == 10:
-                counter = 0
-                custom_print(file_size, log)
+            try:
+                if line[-2] in possible_codes:
+                    if stats.get(line[-2]) is None:
+                        stats[line[-2]] = 1
+                    else:
+                        stats[line[-2]] += 1
+            except IndexError:
+                pass
+
+            if not (i + 1) % 10:
+                print_stats(file_size, stats)
+
+        print_stats(file_size, stats)
     except KeyboardInterrupt:
-        custom_print(file_size, log)
+        print_stats(file_size, stats)
         raise
