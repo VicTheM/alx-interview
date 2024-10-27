@@ -30,7 +30,7 @@ log = {
 file_size = 0
 
 # Get input of a certain format
-pattern = '^([0-9]{1,3}\.){3}[0-9]{1,3} \- (.+) "GET /projects/260 HTTP/1.1" [2-5]0[0134] \d+$'
+pattern = r'^([0-9]{1,3}\.){3}[0-9]{1,3} \- (.+) "GET /projects/260 HTTP/1.1" [2-5]0[0134] \d+$'
 test = re.compile(pattern)
 
 if __name__ == "__main__":
