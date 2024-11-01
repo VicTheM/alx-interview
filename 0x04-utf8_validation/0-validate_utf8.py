@@ -6,4 +6,4 @@ def validUTF8(data):
     """Validates a UTF-8 encoded data and returns false if it is false"""
 
     # Place holder for functional logic
-    return (True)
+    return (data ^ 1)
