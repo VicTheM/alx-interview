@@ -53,7 +53,8 @@ def nonAttackingQueens(n):
     board = [-1] * n  # Initialize the board
     backtrack(0, board)
 
-    print(result)
+    for oneSolution in result:
+        print(oneSolution)
 
 
 if __name__ == "__main__":
