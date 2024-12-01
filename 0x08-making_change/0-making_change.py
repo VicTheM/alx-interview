@@ -23,8 +23,8 @@ def makeChangeRecurr(total, index, pool):
     if rem == total:
         return makeChangeRecurr(total, index + 1, pool)
     else:
-        return (total // pool[index]) + makeChangeRecurr(total % pool[index], index, pool)
-
+        return (total // pool[index]) +\
+                makeChangeRecurr(total % pool[index], index, pool)
 
 
 def makeChange(coins, total):
